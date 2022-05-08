@@ -9,7 +9,8 @@ namespace demo.Controllers
 {
     public class Repo
     {
-        private const string sqlConnectionString = "SERVER=mysql;Port=3306;UID=root;PASSWORD=sturdy;DATABASE=sys;UseAffectedRows=True";
+        private static readonly string password = Environment.GetEnvironmentVariable("PASSWORD");
+        private static readonly string sqlConnectionString = $"SERVER=mysql;Port=3306;UID=root;PASSWORD={password};DATABASE=sys;UseAffectedRows=True";
 
         public string GetValue(string key)
         {
@@ -29,9 +30,9 @@ namespace demo.Controllers
             catch (Exception e)
             
             {
-                Console.WriteLine("-------------------");
+                Console.WriteLine("-----------------------------------------------------------------------");
                 Console.WriteLine(e);
-                Console.WriteLine("-------------------");
+                Console.WriteLine("-----------------------------------------------------------------------");
                 return string.Empty;
             }
         }
@@ -53,9 +54,9 @@ namespace demo.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine("-------------------");
+                Console.WriteLine("-----------------------------------------------------------------------");
                 Console.WriteLine(e);
-                Console.WriteLine("-------------------");
+                Console.WriteLine("-----------------------------------------------------------------------");
                 return -1;
             }
         }
