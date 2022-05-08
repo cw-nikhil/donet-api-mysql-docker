@@ -1,4 +1,4 @@
-This is a simple dotnet core api working as a key value store. It uses MySql for data storage. Both dotnet api and mysql will run in 2 separate docker containers. For mysql I have used the MySql official docker image.
+This is a simple dotnet core api working as a key value store. It uses MySql for data storage. But since the applications has been containerized we don't need to have dotnet core. Both dotnet api and mysql will run in 2 separate docker containers. For mysql I have used the MySql official docker image.
 
 It has just 2 APIs for now to keep things simple
 
