@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-depl
+  labels:
+    app: api
+spec:
+  selector:
+    matchLabels:
+      type: dotnet-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        type: dotnet-pod
+    spec:
+      containers:
+      - name: dotnet-container
+        image: sturdy7/dotnet-api:1.0
+        ports:
+        - containerPort: 6000
+        env:
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: PASSWORD
+        - name: HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: HOST
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: PORT
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-service
+spec:
+  type: LoadBalancer
+  selector:
+    type: dotnet-pod
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 80
+    nodePort: 30000

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-depl
+  labels:
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      type: mysql-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        type: mysql-pod
+    spec:
+      containers:
+      - name: mysql-container
+        image: mysql
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: PASSWORD
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  type: LoadBalancer
+  selector:
+    type: mysql-pod
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 3306
+    nodePort: 30007
