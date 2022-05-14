@@ -9,8 +9,10 @@ namespace demo.Controllers
 {
     public class Repo
     {
+        private static readonly string server = Environment.GetEnvironmentVariable("HOST");
+        private static readonly string port = Environment.GetEnvironmentVariable("PORT");
         private static readonly string password = Environment.GetEnvironmentVariable("PASSWORD");
-        private static readonly string sqlConnectionString = $"SERVER=mysql;Port=3306;UID=root;PASSWORD={password};DATABASE=sys;UseAffectedRows=True";
+        private static readonly string sqlConnectionString = $"SERVER={server};Port={port};UID=root;PASSWORD={password};DATABASE=sys;UseAffectedRows=True";
 
         public string GetValue(string key)
         {
@@ -63,5 +65,3 @@ namespace demo.Controllers
     }
 }
 
-// sudo docker run -e MYSQL_ROOT_PASSWORD=sturdy -p 5001:3306 -d --name mysql --net dotnet-net mysql
-// sudo docker run -p 5000:80 -d --name dotnet-api --net dotnet-net sturdy7/dotnet-api:1.0

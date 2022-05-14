@@ -8,6 +8,8 @@ services:
     - mysql
     environment:
     - PASSWORD=sturdy
+    - PORT=3306
+    - HOST=mysql
   mysql:
     image: mysql
     ports:
